@@ -1,0 +1,20 @@
+{
+  "key.elytraautoflight.toggle": "Toggle AutoFlight / Open Mod Settings",
+  "key.elytraautoflight.toggleafkprotection": "Toggle afk protection",
+  "text.elytraautoflight.afkProtection": "Afk protection ON",
+  "text.elytraautoflight.gui": "In-Flight Gui",
+  "text.elytraautoflight.flightprofile": "Flight Profile",
+  "text.elytraautoflight.title": "Elytra Auto Flight",
+  "text.elytraautoflight.displayGraph": "Display graph",
+  "text.elytraautoflight.guiWidth": "Graph width",
+  "text.elytraautoflight.guiHeight": "Graph height",
+  "text.elytraautoflight.guiX": "Graph X",
+  "text.elytraautoflight.guiY": "Graph Y",
+  "text.elytraautoflight.guiSpan": "Graph horizontal distance",
+  "text.elytraautoflight.pullUpAngle": "Going up angle",
+  "text.elytraautoflight.pullDownAngle": "Going down angle",
+  "text.elytraautoflight.pullUpMinVelocity": "Min velocity when going up",
+  "text.elytraautoflight.pullDownMaxVelocity": "Max velocity when going down",
+  "text.elytraautoflight.pullUpSpeed": "Speed to pull up",
+  "text.elytraautoflight.pullDownSpeed": "Speed to pull down"
+}

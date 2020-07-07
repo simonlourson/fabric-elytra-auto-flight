@@ -1,29 +1,29 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "elytraautoflight",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Elytra Auto Flight",
+  "description": "This mod will fly your elytra wings for you, and will gain altitude without the use of fireworks. ",
   "authors": [
-    "Me!"
+    "LouisLOurson"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/simonlourson/fabric-elytra-auto-flight",
+    "sources": "https://github.com/simonlourson/fabric-elytra-auto-flight"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/elytraautoflight/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "net.elytraautoflight.ElytraAutoFlight"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "elytraautoflight.mixins.json"
   ],
 
   "depends": {
