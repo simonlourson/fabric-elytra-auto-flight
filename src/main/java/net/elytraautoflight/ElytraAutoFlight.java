@@ -27,55 +27,19 @@ import java.util.LinkedList;
 
 public class ElytraAutoFlight implements ModInitializer, net.fabricmc.api.ClientModInitializer {
 
-    public ArrayList<DrownedEntity> drownedList;
-    public void addDrowned(DrownedEntity drowned) {
-        if (drownedList == null) drownedList = new ArrayList<>();
-
-        drownedList.add(drowned);
-    }
-
-    public void addIllager(IllagerEntity illager) {
-
-        minecraftClient.player.playSound(
-                SoundEvents.ENTITY_ENDER_DRAGON_GROWL, // The sound that will play, in this case, the sound the anvil plays when it lands.
-                SoundCategory.AMBIENT, // This determines which of the volume sliders affect this sound
-                1f, //Volume multiplier, 1 is normal, 0.5 is half volume, etc
-                1f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
-        );
-
-    }
-
-    public String getDrownedString(DrownedEntity drowned) {
-        String returnString = "Drowned with trident " + drowned.getEntityId() + ": ";
-
-        int deltaX = (int)(drowned.getPos().x - minecraftClient.player.getPos().x);
-        int deltaZ = (int)(drowned.getPos().z - minecraftClient.player.getPos().z);
-
-        String westEast = deltaX < 0 ? "West" : "East";
-        String northSouth = deltaZ < 0 ? "North" : "South";
-
-        returnString = returnString + Math.abs(deltaX) + " blocks " + westEast + ", " + Math.abs(deltaZ) + " blocks " + northSouth + ", " + (int)drowned.getPos().y;
-
-        return returnString;
-    }
-
     public ElytraConfig config;
 
     public LinkedList<GraphDataPoint> graph;
-
-    private static KeyBinding keyBindingAfkProtection;
 
     private static KeyBinding keyBinding;
     public static ElytraAutoFlight instance;
 
     private boolean lastPressed = false;
-    private boolean lastPressedAfkProtection = false;
 
     private MinecraftClient minecraftClient;
 
     public boolean showHud;
     private boolean autoFlight;
-    public boolean afkProtection = false;
 
     private Vec3d previousPosition;
     private double currentVelocity;
@@ -101,18 +65,9 @@ public class ElytraAutoFlight implements ModInitializer, net.fabricmc.api.Client
                 "text.elytraautoflight.title" // The translation key of the keybinding's category.
         );
 
-        keyBindingAfkProtection = new KeyBinding(
-                "key.elytraautoflight.toggleafkprotection", // The translation key of the keybinding's name
-                InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
-                GLFW.GLFW_KEY_Y, // The keycode of the key
-                "text.elytraautoflight.title" // The translation key of the keybinding's category.
-        );
-
         KeyBindingHelper.registerKeyBinding(keyBinding);
-        KeyBindingHelper.registerKeyBinding(keyBindingAfkProtection);
 
         lastPressed = false;
-        lastPressedAfkProtection = false;
         graph = new LinkedList<>();
 
         System.out.println("Registering client tick");
@@ -199,10 +154,6 @@ public class ElytraAutoFlight implements ModInitializer, net.fabricmc.api.Client
         if (minecraftClient == null) minecraftClient = MinecraftClient.getInstance();
         if (config == null) loadSettings();
 
-        if (drownedList != null) {
-            drownedList.removeIf(x -> x.removed);
-        }
-
         if (minecraftClient.player != null) {
 
             if (minecraftClient.player.isFallFlying())
@@ -211,19 +162,6 @@ public class ElytraAutoFlight implements ModInitializer, net.fabricmc.api.Client
                 showHud = false;
                 autoFlight = false;
             }
-
-            if (afkProtection && (
-                    (minecraftClient.player.getHealth() / minecraftClient.player.getMaxHealth()) < 0.8 ||
-                    ((float)minecraftClient.player.getAir() / minecraftClient.player.getMaxAir()) < 0.8
-                    )) {
-                afkProtection = false;
-                minecraftClient.world.disconnect();
-            }
-
-        }
-
-        if (!lastPressedAfkProtection && keyBindingAfkProtection.isPressed()) {
-            afkProtection = !afkProtection;
         }
 
         if(!lastPressed && keyBinding.isPressed()) {
@@ -241,9 +179,6 @@ public class ElytraAutoFlight implements ModInitializer, net.fabricmc.api.Client
             }
         }
         lastPressed = keyBinding.isPressed();
-        lastPressedAfkProtection = keyBindingAfkProtection.isPressed();
-
-
 
 
         if (autoFlight) {

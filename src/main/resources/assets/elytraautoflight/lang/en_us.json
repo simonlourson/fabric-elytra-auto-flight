@@ -1,7 +1,5 @@
 {
   "key.elytraautoflight.toggle": "Toggle AutoFlight / Open Mod Settings",
-  "key.elytraautoflight.toggleafkprotection": "Toggle afk protection",
-  "text.elytraautoflight.afkProtection": "Afk protection ON",
   "text.elytraautoflight.gui": "In-Flight Gui",
   "text.elytraautoflight.flightprofile": "Flight Profile",
   "text.elytraautoflight.title": "Elytra Auto Flight",

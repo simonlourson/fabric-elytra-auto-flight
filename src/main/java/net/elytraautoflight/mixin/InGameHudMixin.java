@@ -12,8 +12,6 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.DrownedEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.TridentItem;
 import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,27 +31,6 @@ public class InGameHudMixin {
 
 			if (minecraftClient == null) minecraftClient = MinecraftClient.getInstance();
 			if (elytraAutoFlight == null) elytraAutoFlight = ElytraAutoFlight.instance;
-
-			if (elytraAutoFlight.drownedList != null) {
-				float drownedX = elytraAutoFlight.config.guiX;
-				float drownedY = elytraAutoFlight.config.guiY;
-				for (DrownedEntity drowned : elytraAutoFlight.drownedList) {
-
-					int color = 0xFFFFFF;
-					if ("trident".equals(drowned.getEquippedStack(EquipmentSlot.MAINHAND).getItem().toString())) {
-						color = 0xFFFFFF;
-						minecraftClient.textRenderer.drawWithShadow(matrixStack, elytraAutoFlight.getDrownedString(drowned), drownedX, drownedY, color);
-
-						drownedY += minecraftClient.textRenderer.fontHeight + 1;
-					}
-
-
-				}
-			}
-
-			if (elytraAutoFlight.afkProtection) {
-				minecraftClient.textRenderer.drawWithShadow(matrixStack, new TranslatableText("text.elytraautoflight.afkProtection"), elytraAutoFlight.config.guiX, elytraAutoFlight.config.guiY, 0xFFFFFF);
-			}
 
 			if (elytraAutoFlight.showHud) {
 
@@ -140,11 +117,9 @@ public class InGameHudMixin {
 		float float_4 = (float)(color & 255) / 255.0F;
 
 		tessellator_1 = Tessellator.getInstance();
-		//bufferBuilder_1 = tessellator_1.getBufferBuilder();
 		bufferBuilder_1 = tessellator_1.getBuffer();
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture();
-		//GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.color4f(float_2, float_3, float_4, float_1);
 		bufferBuilder_1.begin(3, VertexFormats.POSITION);
 	}
@@ -155,7 +130,6 @@ public class InGameHudMixin {
 		bufferBuilder_1 = tessellator_1.getBuffer();
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture();
-		//GlStateManager.blendFuncSeparate(GlStateManager.DestFactor.SRC.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.blendColor(1, 1, 1, 1);
 		bufferBuilder_1.begin(3, VertexFormats.POSITION_COLOR);
 	}
